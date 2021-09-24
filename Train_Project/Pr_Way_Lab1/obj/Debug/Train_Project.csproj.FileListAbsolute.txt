@@ -1,0 +1,10 @@
+D:\Labs\Pr_Way_Lab1\Train_Project\Pr_Way_Lab1\bin\Debug\Pr_Way_Lab1.exe.config
+D:\Labs\Pr_Way_Lab1\Train_Project\Pr_Way_Lab1\bin\Debug\Pr_Way_Lab1.exe
+D:\Labs\Pr_Way_Lab1\Train_Project\Pr_Way_Lab1\bin\Debug\Pr_Way_Lab1.pdb
+D:\Labs\Pr_Way_Lab1\Train_Project\Pr_Way_Lab1\obj\Debug\Train_Project.csproj.AssemblyReference.cache
+D:\Labs\Pr_Way_Lab1\Train_Project\Pr_Way_Lab1\obj\Debug\Pr_Way_Lab1.FormElTrain.resources
+D:\Labs\Pr_Way_Lab1\Train_Project\Pr_Way_Lab1\obj\Debug\Pr_Way_Lab1.Properties.Resources.resources
+D:\Labs\Pr_Way_Lab1\Train_Project\Pr_Way_Lab1\obj\Debug\Train_Project.csproj.GenerateResource.cache
+D:\Labs\Pr_Way_Lab1\Train_Project\Pr_Way_Lab1\obj\Debug\Train_Project.csproj.CoreCompileInputs.cache
+D:\Labs\Pr_Way_Lab1\Train_Project\Pr_Way_Lab1\obj\Debug\Pr_Way_Lab1.exe
+D:\Labs\Pr_Way_Lab1\Train_Project\Pr_Way_Lab1\obj\Debug\Pr_Way_Lab1.pdb

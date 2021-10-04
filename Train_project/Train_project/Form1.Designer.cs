@@ -34,7 +34,8 @@ namespace Train_project
             this.buttonLeft = new System.Windows.Forms.Button();
             this.buttonRight = new System.Windows.Forms.Button();
             this.buttonDown = new System.Windows.Forms.Button();
-            this.buttonCreate = new System.Windows.Forms.Button();
+            this.buttonCreateTrain = new System.Windows.Forms.Button();
+            this.ButtonCreateElectricTrain = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxElTrain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,26 +96,37 @@ namespace Train_project
             this.buttonDown.UseVisualStyleBackColor = true;
             this.buttonDown.Click += new System.EventHandler(this.buttonMove_Click);
             // 
-            // buttonCreate
+            // buttonCreateTrain
             // 
-            this.buttonCreate.Location = new System.Drawing.Point(12, 12);
-            this.buttonCreate.Name = "buttonCreate";
-            this.buttonCreate.Size = new System.Drawing.Size(84, 27);
-            this.buttonCreate.TabIndex = 6;
-            this.buttonCreate.Text = "Создать";
-            this.buttonCreate.UseVisualStyleBackColor = true;
-            this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click_1);
+            this.buttonCreateTrain.Location = new System.Drawing.Point(12, 12);
+            this.buttonCreateTrain.Name = "buttonCreateTrain";
+            this.buttonCreateTrain.Size = new System.Drawing.Size(142, 27);
+            this.buttonCreateTrain.TabIndex = 6;
+            this.buttonCreateTrain.Text = "Создать поезд";
+            this.buttonCreateTrain.UseVisualStyleBackColor = true;
+            this.buttonCreateTrain.Click += new System.EventHandler(this.buttonCreateTrain_Click);
+            // 
+            // ButtonCreateElectricTrain
+            // 
+            this.ButtonCreateElectricTrain.Location = new System.Drawing.Point(160, 12);
+            this.ButtonCreateElectricTrain.Name = "ButtonCreateElectricTrain";
+            this.ButtonCreateElectricTrain.Size = new System.Drawing.Size(176, 27);
+            this.ButtonCreateElectricTrain.TabIndex = 11;
+            this.ButtonCreateElectricTrain.Text = "Создать электровоз";
+            this.ButtonCreateElectricTrain.UseVisualStyleBackColor = true;
+            this.ButtonCreateElectricTrain.Click += new System.EventHandler(this.ButtonCreateElectricTrain_Click);
             // 
             // FormElTrain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ButtonCreateElectricTrain);
             this.Controls.Add(this.buttonUp);
             this.Controls.Add(this.buttonLeft);
             this.Controls.Add(this.buttonRight);
             this.Controls.Add(this.buttonDown);
-            this.Controls.Add(this.buttonCreate);
+            this.Controls.Add(this.buttonCreateTrain);
             this.Controls.Add(this.pictureBoxElTrain);
             this.Name = "FormElTrain";
             this.Text = "Электровоз";
@@ -130,7 +142,8 @@ namespace Train_project
         private System.Windows.Forms.Button buttonLeft;
         private System.Windows.Forms.Button buttonRight;
         private System.Windows.Forms.Button buttonDown;
-        private System.Windows.Forms.Button buttonCreate;
+        private System.Windows.Forms.Button buttonCreateTrain;
+        private System.Windows.Forms.Button ButtonCreateElectricTrain;
     }
 }
 

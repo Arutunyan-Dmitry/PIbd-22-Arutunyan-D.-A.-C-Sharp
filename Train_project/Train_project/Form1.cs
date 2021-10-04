@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Train_project
 {
     public partial class FormElTrain : Form
     {
-        private Electric_locomotive train;
+        private ITransport train;
 
         /// <summary>
         /// Конструктор
@@ -32,14 +28,23 @@ namespace Train_project
         }
 
         /// <summary>
-        /// Обработка нажатия кнопки "Создать"
+        /// Обработка нажатия кнопки "Создать поезд"
         /// </summary>
-
-        private void buttonCreate_Click_1(object sender, EventArgs e)
+        private void buttonCreateTrain_Click(object sender, EventArgs e)
         {
             Random rnd = new Random();
-            train = new Electric_locomotive();
-            train.Init(rnd.Next(100, 300), rnd.Next(1000, 2000), ColorTranslator.FromHtml("#F4A460"), Color.Yellow, true, true);
+            train = new Train(rnd.Next(100, 300), rnd.Next(1000, 2000), ColorTranslator.FromHtml("#F4A460"), Color.Yellow);
+            train.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxElTrain.Width, pictureBoxElTrain.Height);
+            Draw();
+        }
+
+        /// <summary>
+        /// Обработка нажатия кнопки "Создать электровоз"
+        /// </summary>
+        private void ButtonCreateElectricTrain_Click(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+            train = new Electric_locomotive(rnd.Next(100, 300), rnd.Next(1000, 2000), ColorTranslator.FromHtml("#F4A460"), Color.Yellow, true, true);
             train.SetPosition(rnd.Next(10, 100), rnd.Next(10, 100), pictureBoxElTrain.Width, pictureBoxElTrain.Height);
             Draw();
         }
@@ -71,5 +76,6 @@ namespace Train_project
             }
             Draw();
         }
+
     }
 }

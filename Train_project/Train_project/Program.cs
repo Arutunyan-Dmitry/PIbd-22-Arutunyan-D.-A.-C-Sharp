@@ -16,7 +16,7 @@ namespace Train_project
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormElTrain());
+            Application.Run(new FormDepot());
         }
     }
 }

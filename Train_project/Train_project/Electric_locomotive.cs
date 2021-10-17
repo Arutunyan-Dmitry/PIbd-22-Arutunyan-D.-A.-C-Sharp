@@ -14,6 +14,8 @@ namespace Train_project
         /// </summary>
         public bool Battery { private set; get; }
 
+        public Color ColColor { private set; get; }
+
         /// <summary>
         /// Инициализация свойств
         /// </summary>
@@ -23,7 +25,7 @@ namespace Train_project
         /// <param name="lowerColor">Нижний цвет электровоза</param>
         /// <param name="collector">Признак наличия токоприёмника</param>
         /// <param name="battery">Признак наличия аккумулятора</param>
-        public Electric_locomotive(int maxSpeed, float weight, Color upperColor, Color lowerColor,
+        public Electric_locomotive(int maxSpeed, float weight, Color upperColor, Color lowerColor, Color colColor,
         bool collector, bool battery) : base(maxSpeed, weight, upperColor, upperColor, 200, 110)
 
         {
@@ -31,6 +33,7 @@ namespace Train_project
             Weight = weight;
             UpperColor = upperColor;
             LowerColor = lowerColor;
+            ColColor = colColor;
             Collector = collector;
             Battery = battery;
         }
@@ -41,7 +44,7 @@ namespace Train_project
         /// <param name="g"></param>
         public override void DrawTransport(Graphics g)
         {
-            Pen pen = new Pen(Color.Black);
+            Pen pen = new Pen(ColColor, 2);
 
             // отрисуем основной каркас поезда
             base.DrawTransport(g);

@@ -1,0 +1,150 @@
+﻿
+namespace Train_project
+{
+    partial class FormDepot
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.pictureBoxDepot = new System.Windows.Forms.PictureBox();
+            this.ButtonSetTrain = new System.Windows.Forms.Button();
+            this.ButtonSetElecrticTrain = new System.Windows.Forms.Button();
+            this.GroupTakeTrain = new System.Windows.Forms.GroupBox();
+            this.ButtonTakeTrain = new System.Windows.Forms.Button();
+            this.LabelPlace = new System.Windows.Forms.Label();
+            this.maskedTextBoxPlaceNumb = new System.Windows.Forms.MaskedTextBox();
+            this.LabelTakeTrain = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDepot)).BeginInit();
+            this.GroupTakeTrain.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // pictureBoxDepot
+            // 
+            this.pictureBoxDepot.Location = new System.Drawing.Point(13, 13);
+            this.pictureBoxDepot.Name = "pictureBoxDepot";
+            this.pictureBoxDepot.Size = new System.Drawing.Size(1200, 565);
+            this.pictureBoxDepot.TabIndex = 0;
+            this.pictureBoxDepot.TabStop = false;
+            // 
+            // ButtonSetTrain
+            // 
+            this.ButtonSetTrain.Location = new System.Drawing.Point(1219, 12);
+            this.ButtonSetTrain.Name = "ButtonSetTrain";
+            this.ButtonSetTrain.Size = new System.Drawing.Size(118, 55);
+            this.ButtonSetTrain.TabIndex = 1;
+            this.ButtonSetTrain.Text = "Поставить поезд";
+            this.ButtonSetTrain.UseVisualStyleBackColor = true;
+            this.ButtonSetTrain.Click += new System.EventHandler(this.ButtonSetTrain_Click);
+            // 
+            // ButtonSetElecrticTrain
+            // 
+            this.ButtonSetElecrticTrain.Location = new System.Drawing.Point(1219, 76);
+            this.ButtonSetElecrticTrain.Name = "ButtonSetElecrticTrain";
+            this.ButtonSetElecrticTrain.Size = new System.Drawing.Size(118, 55);
+            this.ButtonSetElecrticTrain.TabIndex = 2;
+            this.ButtonSetElecrticTrain.Text = "Поставить электровоз";
+            this.ButtonSetElecrticTrain.UseVisualStyleBackColor = true;
+            this.ButtonSetElecrticTrain.Click += new System.EventHandler(this.ButtonSetElecrticTrain_Click);
+            // 
+            // GroupTakeTrain
+            // 
+            this.GroupTakeTrain.Controls.Add(this.ButtonTakeTrain);
+            this.GroupTakeTrain.Controls.Add(this.LabelPlace);
+            this.GroupTakeTrain.Controls.Add(this.maskedTextBoxPlaceNumb);
+            this.GroupTakeTrain.Controls.Add(this.LabelTakeTrain);
+            this.GroupTakeTrain.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.GroupTakeTrain.Location = new System.Drawing.Point(1219, 149);
+            this.GroupTakeTrain.Name = "GroupTakeTrain";
+            this.GroupTakeTrain.Size = new System.Drawing.Size(118, 95);
+            this.GroupTakeTrain.TabIndex = 3;
+            this.GroupTakeTrain.TabStop = false;
+            // 
+            // ButtonTakeTrain
+            // 
+            this.ButtonTakeTrain.Location = new System.Drawing.Point(12, 66);
+            this.ButtonTakeTrain.Name = "ButtonTakeTrain";
+            this.ButtonTakeTrain.Size = new System.Drawing.Size(88, 23);
+            this.ButtonTakeTrain.TabIndex = 7;
+            this.ButtonTakeTrain.Text = "Забрать";
+            this.ButtonTakeTrain.UseVisualStyleBackColor = true;
+            this.ButtonTakeTrain.Click += new System.EventHandler(this.ButtonTakeTrain_Click);
+            // 
+            // LabelPlace
+            // 
+            this.LabelPlace.AutoSize = true;
+            this.LabelPlace.Location = new System.Drawing.Point(9, 32);
+            this.LabelPlace.Name = "LabelPlace";
+            this.LabelPlace.Size = new System.Drawing.Size(53, 17);
+            this.LabelPlace.TabIndex = 6;
+            this.LabelPlace.Text = "Место:";
+            // 
+            // maskedTextBoxPlaceNumb
+            // 
+            this.maskedTextBoxPlaceNumb.Location = new System.Drawing.Point(68, 29);
+            this.maskedTextBoxPlaceNumb.Mask = "00";
+            this.maskedTextBoxPlaceNumb.Name = "maskedTextBoxPlaceNumb";
+            this.maskedTextBoxPlaceNumb.Size = new System.Drawing.Size(32, 22);
+            this.maskedTextBoxPlaceNumb.TabIndex = 5;
+            // 
+            // LabelTakeTrain
+            // 
+            this.LabelTakeTrain.AutoSize = true;
+            this.LabelTakeTrain.Location = new System.Drawing.Point(6, -3);
+            this.LabelTakeTrain.Name = "LabelTakeTrain";
+            this.LabelTakeTrain.Size = new System.Drawing.Size(106, 17);
+            this.LabelTakeTrain.TabIndex = 4;
+            this.LabelTakeTrain.Text = "Забрать поезд";
+            // 
+            // FormDepot
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1347, 588);
+            this.Controls.Add(this.GroupTakeTrain);
+            this.Controls.Add(this.ButtonSetElecrticTrain);
+            this.Controls.Add(this.ButtonSetTrain);
+            this.Controls.Add(this.pictureBoxDepot);
+            this.Name = "FormDepot";
+            this.Text = "Депо";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDepot)).EndInit();
+            this.GroupTakeTrain.ResumeLayout(false);
+            this.GroupTakeTrain.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.PictureBox pictureBoxDepot;
+        private System.Windows.Forms.Button ButtonSetTrain;
+        private System.Windows.Forms.Button ButtonSetElecrticTrain;
+        private System.Windows.Forms.GroupBox GroupTakeTrain;
+        private System.Windows.Forms.Button ButtonTakeTrain;
+        private System.Windows.Forms.Label LabelPlace;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxPlaceNumb;
+        private System.Windows.Forms.Label LabelTakeTrain;
+    }
+}

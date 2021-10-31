@@ -14,6 +14,9 @@ namespace Train_project
         /// </summary>
         public bool Battery { private set; get; }
 
+        /// <summary>
+        /// Дополнительный цвет
+        /// </summary>
         public Color ColColor { private set; get; }
 
         /// <summary>
@@ -45,6 +48,8 @@ namespace Train_project
         public override void DrawTransport(Graphics g)
         {
             Pen pen = new Pen(ColColor, 2);
+            Pen DraftPen = new Pen(Color.Gray);
+            Brush br = new SolidBrush(ColColor);
 
             // отрисуем основной каркас поезда
             base.DrawTransport(g);
@@ -57,15 +62,24 @@ namespace Train_project
                     new PointF(_startPosX + 95, _startPosY + 15),
                     new PointF(_startPosX + 80, _startPosY + 30),
                     new PointF(_startPosX + 65, _startPosY + 15) };
-                g.DrawPolygon(pen, Cond_points);
+                g.DrawPolygon(pen, Cond_points);        
             }
 
             // отрисуем аккумулятор
             if (Battery)
             {
-                Brush br = new SolidBrush(Color.Red);
                 g.FillRectangle(br, _startPosX + 110, _startPosY + 50, 30, 20);
+                g.DrawRectangle(DraftPen, _startPosX + 110, _startPosY + 50, 30, 20);
             }
+        }
+
+        /// <summary>
+        /// Смена дополнительного цвета
+        /// </summary>
+        /// <param name="color"></param>
+        public void SetDopColor(Color color)
+        {
+            ColColor = color;
         }
     }
 }

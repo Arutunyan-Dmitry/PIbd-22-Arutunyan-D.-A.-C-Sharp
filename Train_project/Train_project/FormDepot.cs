@@ -106,51 +106,29 @@ namespace Train_project
         /// <param name="e"></param>
         private void ButtonSetTrain_Click(object sender, EventArgs e)
         {
-            ColorDialog dialogLow = new ColorDialog();
-            if (dialogLow.ShowDialog() == DialogResult.OK)
+            if (listBoxDepot.SelectedIndex > -1)
             {
-                ColorDialog dialogUp = new ColorDialog();
-                if (dialogUp.ShowDialog() == DialogResult.OK)
-                {
-                    var train = new Train(100, 1000, dialogUp.Color, dialogLow.Color);
-                    if ((depotCollection[listBoxDepot.SelectedItem.ToString()] + train) != -1)
-                    {
-                        Draw();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Депо переполнено");
-                    }
-                }
+                var formTrainConfig = new FormTrainConfig();
+                formTrainConfig.AddEvent(AddTrain);
+                formTrainConfig.Show();
             }
         }
 
         /// <summary>
-        /// Отработка нажатия кнопки "Поставить электровоз"
+        /// Метод добавления поезда
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ButtonSetElecrticTrain_Click(object sender, EventArgs e)
+        /// <param name="car"></param>
+        private void AddTrain(Vehicle train)
         {
-            ColorDialog dialogLow = new ColorDialog();
-            if (dialogLow.ShowDialog() == DialogResult.OK)
+            if (train != null && listBoxDepot.SelectedIndex > -1)
             {
-                ColorDialog dialogUp = new ColorDialog();
-                if (dialogUp.ShowDialog() == DialogResult.OK)
+                if (((depotCollection[listBoxDepot.SelectedItem.ToString()]) + train) != -1)
                 {
-                    ColorDialog dialogDop = new ColorDialog();
-                    if (dialogDop.ShowDialog() == DialogResult.OK)
-                    {
-                        var train = new Electric_locomotive(100, 1000, dialogUp.Color, dialogLow.Color, dialogDop.Color, true, true);
-                        if ((depotCollection[listBoxDepot.SelectedItem.ToString()] + train) != -1)
-                        {
-                            Draw();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Депо переполнено");
-                        }
-                    }
+                    Draw();
+                }
+                else
+                {
+                    MessageBox.Show("Поезд не удалось поставить");
                 }
             }
         }
@@ -162,9 +140,9 @@ namespace Train_project
         /// <param name="e"></param>
         private void ButtonTakeTrain_Click(object sender, EventArgs e)
         {
-            if (listBoxDepot.SelectedIndex > -1 && maskedTextBoxPlaceNumb.Text != "")
+            if (maskedTextBoxPlaceNumb.Text != "")
             {
-                var train = depotCollection[listBoxDepot.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBoxPlaceNumb.Text);
+                Vehicle train = depotCollection[listBoxDepot.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBoxPlaceNumb.Text);
                 if (train != null)
                 {
                     FormElTrain form = new FormElTrain();
@@ -183,7 +161,7 @@ namespace Train_project
         private void listBoxDepot_SelectedIndexChanged(object sender, EventArgs e)
         {
             Draw();
-        }
+        }   
     }
 }
 

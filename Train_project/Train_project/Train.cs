@@ -84,8 +84,9 @@ namespace Train_project
 
         public override void DrawTransport(Graphics g)
         {
+            Pen DraftPen = new Pen(Color.Gray);//для отрисовки контура
             // верхняя часть тепловоза
-            Brush br = new SolidBrush(UpperColor);
+            Brush br = new SolidBrush(UpperColor); 
             PointF[] Upper_part_points = {
                 new PointF (_startPosX + 30, _startPosY + 30),
                 new PointF (_startPosX + 190, _startPosY + 30),
@@ -93,9 +94,11 @@ namespace Train_project
                 new PointF (_startPosX + 10, _startPosY + 60)
             };
             g.FillPolygon(br, Upper_part_points);
+            g.DrawPolygon(DraftPen, Upper_part_points);
             // нижняя часть тепловоза
             br = new SolidBrush(LowerColor);
             g.FillRectangle(br, _startPosX + 10, _startPosY + 60, 180, 30);
+            g.DrawRectangle(DraftPen, _startPosX + 10, _startPosY + 60, 180, 30);
             // передний бампер
             br = new SolidBrush(Color.Black);
             PointF[] Front_bumper = {

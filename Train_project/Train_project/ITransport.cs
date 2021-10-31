@@ -24,5 +24,17 @@ namespace Train_project
         /// </summary>
         /// <param name="g"></param>
         void DrawTransport(Graphics g);
+
+        /// <summary>
+        /// Смена основного нижнего цвета
+        /// </summary>
+        /// <param name="color"></param>
+        void SetDownColor(Color color);
+
+        /// <summary>
+        /// Смена основного верхнего цвета
+        /// </summary>
+        /// <param name="color"></param>
+        void SetUpColor(Color color);
     }
 }

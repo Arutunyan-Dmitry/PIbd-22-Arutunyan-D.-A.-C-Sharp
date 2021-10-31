@@ -14,9 +14,13 @@ namespace Train_project
     class Depots<T> where T : class, ITransport
     {
         /// <summary>
-        /// Массив объектов, которые храним
+        /// Список объектов, которые храним
         /// </summary>
-        private readonly T[] _places;
+        private readonly List<T> _places;
+        /// <summary>
+        /// Максимальное количество мест в депо
+        /// </summary>
+        private readonly int _maxCount;
         /// <summary>
         /// Ширина окна отрисовки
         /// </summary>
@@ -42,7 +46,8 @@ namespace Train_project
         {
             int width = picWidth / _placeSizeWidth;
             int height = picHeight / _placeSizeHeight;
-            _places = new T[width * height];
+            _maxCount = width * height;
+            _places = new List<T>();
             pictureWidth = picWidth;
             pictureHeight = picHeight;
         }
@@ -55,16 +60,12 @@ namespace Train_project
         /// <returns></returns>
         public static int operator +(Depots<T> p, T train)
         {
-
-            for (int i = 0; i < p._places.Length; i++)
+            if (p._places.Count != p._maxCount)
             {
-                if (p._places[i] == null)
-                {
-                    p._places[i] = train;
-                    return i;
-                }
+                p._places.Add(train);
+                return p._places.Count - 1;
             }
-            return -1; 
+            return -1;      
         }
         /// <summary>
         /// Перегрузка оператора вычитания
@@ -76,10 +77,10 @@ namespace Train_project
         public static T operator -(Depots<T> p, int index)
         {
             
-            if (index <= p._places.Length)
+            if ((index >= 0) && (index < p._places.Count))
             {
                 T result = p._places[index];
-                p._places[index] = null;
+                p._places.RemoveAt(index);
                 return result;
             }
             return null;
@@ -94,7 +95,7 @@ namespace Train_project
             int widthParam = pictureWidth / _placeSizeWidth;
             int heightParam = pictureHeight / _placeSizeHeight;
 
-            for (int i = 0; i < _places.Length; i++)
+            for (int i = 0; i < _places.Count; i++)
             {
                 _places[i]?.SetPosition(i % widthParam * _placeSizeWidth + 15, heightParam + i / heightParam * _placeSizeHeight + 5, pictureWidth, pictureHeight);
                 _places[i]?.DrawTransport(g); 

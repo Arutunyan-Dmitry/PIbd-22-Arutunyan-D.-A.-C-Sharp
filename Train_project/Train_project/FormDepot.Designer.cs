@@ -31,7 +31,6 @@ namespace Train_project
         {
             this.pictureBoxDepot = new System.Windows.Forms.PictureBox();
             this.ButtonSetTrain = new System.Windows.Forms.Button();
-            this.ButtonSetElecrticTrain = new System.Windows.Forms.Button();
             this.GroupTakeTrain = new System.Windows.Forms.GroupBox();
             this.ButtonTakeTrain = new System.Windows.Forms.Button();
             this.LabelPlace = new System.Windows.Forms.Label();
@@ -60,19 +59,9 @@ namespace Train_project
             this.ButtonSetTrain.Name = "ButtonSetTrain";
             this.ButtonSetTrain.Size = new System.Drawing.Size(118, 55);
             this.ButtonSetTrain.TabIndex = 1;
-            this.ButtonSetTrain.Text = "Поставить поезд";
+            this.ButtonSetTrain.Text = "Добавить поезд";
             this.ButtonSetTrain.UseVisualStyleBackColor = true;
             this.ButtonSetTrain.Click += new System.EventHandler(this.ButtonSetTrain_Click);
-            // 
-            // ButtonSetElecrticTrain
-            // 
-            this.ButtonSetElecrticTrain.Location = new System.Drawing.Point(1219, 410);
-            this.ButtonSetElecrticTrain.Name = "ButtonSetElecrticTrain";
-            this.ButtonSetElecrticTrain.Size = new System.Drawing.Size(118, 55);
-            this.ButtonSetElecrticTrain.TabIndex = 2;
-            this.ButtonSetElecrticTrain.Text = "Поставить электровоз";
-            this.ButtonSetElecrticTrain.UseVisualStyleBackColor = true;
-            this.ButtonSetElecrticTrain.Click += new System.EventHandler(this.ButtonSetElecrticTrain_Click);
             // 
             // GroupTakeTrain
             // 
@@ -81,7 +70,7 @@ namespace Train_project
             this.GroupTakeTrain.Controls.Add(this.maskedTextBoxPlaceNumb);
             this.GroupTakeTrain.Controls.Add(this.LabelTakeTrain);
             this.GroupTakeTrain.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.GroupTakeTrain.Location = new System.Drawing.Point(1219, 483);
+            this.GroupTakeTrain.Location = new System.Drawing.Point(1220, 407);
             this.GroupTakeTrain.Name = "GroupTakeTrain";
             this.GroupTakeTrain.Size = new System.Drawing.Size(118, 95);
             this.GroupTakeTrain.TabIndex = 3;
@@ -180,7 +169,6 @@ namespace Train_project
             this.Controls.Add(this.textBoxNewLevelName);
             this.Controls.Add(this.LabelDepot);
             this.Controls.Add(this.GroupTakeTrain);
-            this.Controls.Add(this.ButtonSetElecrticTrain);
             this.Controls.Add(this.ButtonSetTrain);
             this.Controls.Add(this.pictureBoxDepot);
             this.Name = "FormDepot";
@@ -197,7 +185,6 @@ namespace Train_project
 
         private System.Windows.Forms.PictureBox pictureBoxDepot;
         private System.Windows.Forms.Button ButtonSetTrain;
-        private System.Windows.Forms.Button ButtonSetElecrticTrain;
         private System.Windows.Forms.GroupBox GroupTakeTrain;
         private System.Windows.Forms.Button ButtonTakeTrain;
         private System.Windows.Forms.Label LabelPlace;

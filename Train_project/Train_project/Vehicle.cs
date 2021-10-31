@@ -43,12 +43,23 @@ namespace Train_project
         /// Нижний цвет кузова
         /// </summary>
         public Color LowerColor { protected set; get; }
+
         public void SetPosition(int x, int y, int width, int height)
         {
             _startPosX = x;
             _startPosY = y;
             _pictureWidth = width;
             _pictureHeight = height;
+        }
+
+        public void SetDownColor(Color color)
+        {
+            LowerColor = color;
+        }
+
+        public void SetUpColor(Color color)
+        {
+            UpperColor = color;
         }
         public abstract void DrawTransport(Graphics g);
         public abstract void MoveTransport(Direction direction);

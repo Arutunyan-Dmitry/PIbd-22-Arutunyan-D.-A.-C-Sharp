@@ -37,6 +37,11 @@ namespace Train_project
             this.LabelPlace = new System.Windows.Forms.Label();
             this.maskedTextBoxPlaceNumb = new System.Windows.Forms.MaskedTextBox();
             this.LabelTakeTrain = new System.Windows.Forms.Label();
+            this.LabelDepot = new System.Windows.Forms.Label();
+            this.textBoxNewLevelName = new System.Windows.Forms.TextBox();
+            this.buttonAddDepot = new System.Windows.Forms.Button();
+            this.listBoxDepot = new System.Windows.Forms.ListBox();
+            this.buttonDelDepot = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDepot)).BeginInit();
             this.GroupTakeTrain.SuspendLayout();
             this.SuspendLayout();
@@ -51,7 +56,7 @@ namespace Train_project
             // 
             // ButtonSetTrain
             // 
-            this.ButtonSetTrain.Location = new System.Drawing.Point(1219, 12);
+            this.ButtonSetTrain.Location = new System.Drawing.Point(1219, 346);
             this.ButtonSetTrain.Name = "ButtonSetTrain";
             this.ButtonSetTrain.Size = new System.Drawing.Size(118, 55);
             this.ButtonSetTrain.TabIndex = 1;
@@ -61,7 +66,7 @@ namespace Train_project
             // 
             // ButtonSetElecrticTrain
             // 
-            this.ButtonSetElecrticTrain.Location = new System.Drawing.Point(1219, 76);
+            this.ButtonSetElecrticTrain.Location = new System.Drawing.Point(1219, 410);
             this.ButtonSetElecrticTrain.Name = "ButtonSetElecrticTrain";
             this.ButtonSetElecrticTrain.Size = new System.Drawing.Size(118, 55);
             this.ButtonSetElecrticTrain.TabIndex = 2;
@@ -76,7 +81,7 @@ namespace Train_project
             this.GroupTakeTrain.Controls.Add(this.maskedTextBoxPlaceNumb);
             this.GroupTakeTrain.Controls.Add(this.LabelTakeTrain);
             this.GroupTakeTrain.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.GroupTakeTrain.Location = new System.Drawing.Point(1219, 149);
+            this.GroupTakeTrain.Location = new System.Drawing.Point(1219, 483);
             this.GroupTakeTrain.Name = "GroupTakeTrain";
             this.GroupTakeTrain.Size = new System.Drawing.Size(118, 95);
             this.GroupTakeTrain.TabIndex = 3;
@@ -118,11 +123,62 @@ namespace Train_project
             this.LabelTakeTrain.TabIndex = 4;
             this.LabelTakeTrain.Text = "Забрать поезд";
             // 
+            // LabelDepot
+            // 
+            this.LabelDepot.AutoSize = true;
+            this.LabelDepot.Location = new System.Drawing.Point(1260, 13);
+            this.LabelDepot.Name = "LabelDepot";
+            this.LabelDepot.Size = new System.Drawing.Size(43, 17);
+            this.LabelDepot.TabIndex = 4;
+            this.LabelDepot.Text = "Депо";
+            // 
+            // textBoxNewLevelName
+            // 
+            this.textBoxNewLevelName.Location = new System.Drawing.Point(1220, 35);
+            this.textBoxNewLevelName.Name = "textBoxNewLevelName";
+            this.textBoxNewLevelName.Size = new System.Drawing.Size(117, 22);
+            this.textBoxNewLevelName.TabIndex = 5;
+            // 
+            // buttonAddDepot
+            // 
+            this.buttonAddDepot.Location = new System.Drawing.Point(1220, 64);
+            this.buttonAddDepot.Name = "buttonAddDepot";
+            this.buttonAddDepot.Size = new System.Drawing.Size(117, 23);
+            this.buttonAddDepot.TabIndex = 6;
+            this.buttonAddDepot.Text = "Добавить депо";
+            this.buttonAddDepot.UseVisualStyleBackColor = true;
+            this.buttonAddDepot.Click += new System.EventHandler(this.buttonAddDepot_Click);
+            // 
+            // listBoxDepot
+            // 
+            this.listBoxDepot.FormattingEnabled = true;
+            this.listBoxDepot.ItemHeight = 16;
+            this.listBoxDepot.Location = new System.Drawing.Point(1220, 94);
+            this.listBoxDepot.Name = "listBoxDepot";
+            this.listBoxDepot.Size = new System.Drawing.Size(117, 148);
+            this.listBoxDepot.TabIndex = 7;
+            this.listBoxDepot.SelectedIndexChanged += new System.EventHandler(this.listBoxDepot_SelectedIndexChanged);
+            // 
+            // buttonDelDepot
+            // 
+            this.buttonDelDepot.Location = new System.Drawing.Point(1220, 249);
+            this.buttonDelDepot.Name = "buttonDelDepot";
+            this.buttonDelDepot.Size = new System.Drawing.Size(117, 23);
+            this.buttonDelDepot.TabIndex = 8;
+            this.buttonDelDepot.Text = "Удалить депо";
+            this.buttonDelDepot.UseVisualStyleBackColor = true;
+            this.buttonDelDepot.Click += new System.EventHandler(this.buttonDelDepot_Click);
+            // 
             // FormDepot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1347, 588);
+            this.Controls.Add(this.buttonDelDepot);
+            this.Controls.Add(this.listBoxDepot);
+            this.Controls.Add(this.buttonAddDepot);
+            this.Controls.Add(this.textBoxNewLevelName);
+            this.Controls.Add(this.LabelDepot);
             this.Controls.Add(this.GroupTakeTrain);
             this.Controls.Add(this.ButtonSetElecrticTrain);
             this.Controls.Add(this.ButtonSetTrain);
@@ -133,6 +189,7 @@ namespace Train_project
             this.GroupTakeTrain.ResumeLayout(false);
             this.GroupTakeTrain.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -146,5 +203,10 @@ namespace Train_project
         private System.Windows.Forms.Label LabelPlace;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxPlaceNumb;
         private System.Windows.Forms.Label LabelTakeTrain;
+        private System.Windows.Forms.Label LabelDepot;
+        private System.Windows.Forms.TextBox textBoxNewLevelName;
+        private System.Windows.Forms.Button buttonAddDepot;
+        private System.Windows.Forms.ListBox listBoxDepot;
+        private System.Windows.Forms.Button buttonDelDepot;
     }
 }

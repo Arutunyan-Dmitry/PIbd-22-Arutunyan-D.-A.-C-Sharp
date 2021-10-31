@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DepotCollection.cs" />
     <Compile Include="Depots.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Electric_locomotive.cs" />

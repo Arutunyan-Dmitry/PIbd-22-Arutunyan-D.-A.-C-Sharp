@@ -15,13 +15,35 @@ namespace Train_project
         /// <summary>
         /// Объект от класса-депо
         /// </summary>
-        private readonly Depots<Train> depots;
+        private readonly DepotCollection depotCollection;
         public FormDepot()
         {
             InitializeComponent();
-            depots = new Depots<Train>(pictureBoxDepot.Width,
+            depotCollection = new DepotCollection(pictureBoxDepot.Width,
             pictureBoxDepot.Height);
-            Draw();
+        }
+
+        /// <summary>
+        /// Заполнение listBoxLevels
+        /// </summary>
+        private void ReloadLevels()
+        {
+            int index = listBoxDepot.SelectedIndex;
+            listBoxDepot.Items.Clear();
+            for (int i = 0; i < depotCollection.Keys.Count; i++)
+            {
+                listBoxDepot.Items.Add(depotCollection.Keys[i]);
+            }
+            if (listBoxDepot.Items.Count > 0 && (index == -1 || index >=
+            listBoxDepot.Items.Count))
+            {
+                listBoxDepot.SelectedIndex = 0;
+            }
+            else if (listBoxDepot.Items.Count > 0 && index > -1 && index <
+            listBoxDepot.Items.Count)
+            {
+                listBoxDepot.SelectedIndex = index;
+            }
         }
 
         /// <summary>
@@ -29,10 +51,52 @@ namespace Train_project
         /// </summary>
         private void Draw()
         {
-            Bitmap bmp = new Bitmap(pictureBoxDepot.Width, pictureBoxDepot.Height);
-            Graphics gr = Graphics.FromImage(bmp);
-            depots.Draw(gr);
-            pictureBoxDepot.Image = bmp;
+            if (listBoxDepot.SelectedIndex > -1)
+            {//если выбран один из пуктов в listBox (при старте программы ни один пункт
+             //не будет выбран и может возникнуть ошибка, если мы попытаемся обратиться
+             //к элементу listBox)
+                Bitmap bmp = new Bitmap(pictureBoxDepot.Width, pictureBoxDepot.Height);
+                Graphics gr = Graphics.FromImage(bmp);
+                depotCollection[listBoxDepot.SelectedItem.ToString()].Draw(gr);
+                pictureBoxDepot.Image = bmp;
+            }
+        }
+
+        /// <summary>
+        /// Обработка нажатия кнопки "Добавить депо"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonAddDepot_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxNewLevelName.Text))
+            {
+                MessageBox.Show("Введите название депо", "Ошибка",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            depotCollection.AddDepot(textBoxNewLevelName.Text);
+            ReloadLevels();
+        }
+        /// <summary>
+        /// Обработка нажатия кнопки "Удалить депо"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonDelDepot_Click(object sender, EventArgs e)
+        {
+            if (listBoxDepot.SelectedIndex > -1)
+            {
+                if (MessageBox.Show($"Удалить депо { listBoxDepot.SelectedItem}?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    depotCollection.DelDepot(listBoxDepot.SelectedItem.ToString());
+                    ReloadLevels();
+                }
+            }
+            if (listBoxDepot.SelectedItem == null)
+            {
+                pictureBoxDepot.Image = null;
+            }
         }
 
         /// <summary>
@@ -49,7 +113,7 @@ namespace Train_project
                 if (dialogUp.ShowDialog() == DialogResult.OK)
                 {
                     var train = new Train(100, 1000, dialogUp.Color, dialogLow.Color);
-                    if ((depots + train) != -1)
+                    if ((depotCollection[listBoxDepot.SelectedItem.ToString()] + train) != -1)
                     {
                         Draw();
                     }
@@ -57,12 +121,12 @@ namespace Train_project
                     {
                         MessageBox.Show("Депо переполнено");
                     }
-                }              
+                }
             }
         }
 
         /// <summary>
-        /// Обработка нажатия кнопки "Поставить электровоз"
+        /// Отработка нажатия кнопки "Поставить электровоз"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -78,7 +142,7 @@ namespace Train_project
                     if (dialogDop.ShowDialog() == DialogResult.OK)
                     {
                         var train = new Electric_locomotive(100, 1000, dialogUp.Color, dialogLow.Color, dialogDop.Color, true, true);
-                        if ((depots + train) != -1)
+                        if ((depotCollection[listBoxDepot.SelectedItem.ToString()] + train) != -1)
                         {
                             Draw();
                         }
@@ -92,15 +156,15 @@ namespace Train_project
         }
 
         /// <summary>
-        /// Обработка нажатия кнопки "Забрать поезд"
+        /// Отработка нажатия кнопки "Забрать поезд"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButtonTakeTrain_Click(object sender, EventArgs e)
         {
-            if (maskedTextBoxPlaceNumb.Text != "")
+            if (listBoxDepot.SelectedIndex > -1 && maskedTextBoxPlaceNumb.Text != "")
             {
-                var train = depots - Convert.ToInt32(maskedTextBoxPlaceNumb.Text);
+                var train = depotCollection[listBoxDepot.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBoxPlaceNumb.Text);
                 if (train != null)
                 {
                     FormElTrain form = new FormElTrain();
@@ -109,6 +173,16 @@ namespace Train_project
                 }
                 Draw();
             }
+        }
+
+        /// <summary>
+        /// Метод обработки выбора элемента на listBoxLevels
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>  
+        private void listBoxDepot_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Draw();
         }
     }
 }

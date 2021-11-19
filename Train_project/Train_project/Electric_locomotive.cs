@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace Train_project
 {
@@ -42,6 +43,25 @@ namespace Train_project
         }
 
         /// <summary>
+        /// Конструктор для загрузки с файла
+        /// </summary>
+        /// <param name="info">Информация по объекту</param>
+        public Electric_locomotive(string info) : base(info)
+        {
+            string[] strs = info.Split(separator);
+            if (strs.Length == 7)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                UpperColor = Color.FromName(strs[2]);
+                LowerColor = Color.FromName(strs[3]);
+                ColColor = Color.FromName(strs[4]);
+                Collector = Convert.ToBoolean(strs[5]);
+                Battery = Convert.ToBoolean(strs[6]);
+            }
+        }
+
+        /// <summary>
         /// Отрисовка электровоза
         /// </summary>
         /// <param name="g"></param>
@@ -80,6 +100,12 @@ namespace Train_project
         public void SetDopColor(Color color)
         {
             ColColor = color;
+        }
+
+        public override string ToString()
+        {
+            return
+            $"{base.ToString()}{separator}{ColColor.Name}{separator}{Collector}{separator}{Battery}";
         }
     }
 }

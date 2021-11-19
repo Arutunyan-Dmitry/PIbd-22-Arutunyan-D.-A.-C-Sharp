@@ -237,7 +237,7 @@ namespace Train_project
             // 
             // panelPurple
             // 
-            this.panelPurple.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.panelPurple.BackColor = System.Drawing.Color.MediumOrchid;
             this.panelPurple.Location = new System.Drawing.Point(303, 95);
             this.panelPurple.Name = "panelPurple";
             this.panelPurple.Size = new System.Drawing.Size(41, 40);
@@ -285,7 +285,7 @@ namespace Train_project
             // 
             // panelOrange
             // 
-            this.panelOrange.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.panelOrange.BackColor = System.Drawing.Color.DarkOrange;
             this.panelOrange.Location = new System.Drawing.Point(68, 95);
             this.panelOrange.Name = "panelOrange";
             this.panelOrange.Size = new System.Drawing.Size(41, 40);

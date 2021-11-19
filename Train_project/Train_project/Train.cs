@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace Train_project
 {
@@ -14,6 +15,11 @@ namespace Train_project
         /// </summary>
         protected readonly int TrainHeight = 110;
 
+        /// <summary>
+        /// Разделитель для записи информации по объекту в файл
+        /// </summary>
+        protected readonly char separator = ';';
+
         /// Конструктор
         /// </summary>
         /// <param name="maxSpeed">Максимальная скорость</param>
@@ -27,6 +33,23 @@ namespace Train_project
             UpperColor = upperColor;
             LowerColor = lowerColor;
         }
+
+        /// <summary>
+        /// Конструктор для загрузки с файла
+        /// </summary>
+        /// <param name="info">Информация по объекту</param>
+        public Train(string info)
+        {
+            string[] strs = info.Split(separator);
+            if (strs.Length == 4)
+            {
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                Weight = Convert.ToInt32(strs[1]);
+                UpperColor = Color.FromName(strs[2]);
+                LowerColor = Color.FromName(strs[3]);
+            }
+        }
+
         /// <summary>
         /// Конструктор с изменением размеров поезда
         /// </summary>
@@ -135,6 +158,11 @@ namespace Train_project
             //сцепка
             br = new SolidBrush(Color.Black);
             g.FillRectangle(br, _startPosX + 190, _startPosY + 40, 10, 40);
+        }
+
+        public override string ToString()
+        {
+            return $"{MaxSpeed}{separator}{Weight}{separator}{UpperColor.Name}{separator}{LowerColor.Name}";
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Train_project
 {
@@ -21,6 +23,11 @@ namespace Train_project
         /// Высота окна отрисовки
         /// </summary>
         private readonly int pictureHeight;
+        /// <summary>
+        /// Разделитель для записи информации в файл
+        /// </summary>
+        private readonly char separator = ':';
+
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -63,6 +70,91 @@ namespace Train_project
                 if (depotsStages.ContainsKey(ind))
                     return depotsStages[ind];
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Сохранение информации по поездам в депо в файл
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public bool SaveData(string filename)
+        {
+            using (StreamWriter streamWriter = new StreamWriter
+            (filename, false, Encoding.Default))
+            {
+                streamWriter.WriteLine("DepotCollection");
+                foreach (var level in depotsStages)
+                {
+                    streamWriter.WriteLine("Depots" + separator + level.Key);
+                    ITransport train;
+                    for (int i = 0; (train = level.Value.GetNext(i)) != null; i++)
+                    {
+                        if (train.GetType().Name == "Train")
+                        {
+                            streamWriter.Write("Train" + separator);
+                        }
+                        else if (train.GetType().Name == "Electric_locomotive")
+                        {
+                            streamWriter.Write("Electric_locomotive" + separator);
+                        }
+                        streamWriter.WriteLine(train);
+                    }
+                }
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Загрузка информации по поездам в депо в файл
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public bool LoadData(string filename)
+        {
+            if (!File.Exists(filename))
+            {
+                return false;
+            }
+
+            using (StreamReader streamReader = new StreamReader
+            (filename, Encoding.Default))
+            {
+                if (streamReader.ReadLine().Contains("DepotCollection"))
+                {
+                    depotsStages.Clear();
+                }
+                else
+                {
+                    return false;
+                }
+                Vehicle transport = null;
+                string key = string.Empty;
+                string line;
+                for (int i = 0; (line = streamReader.ReadLine()) != null; i++)
+                {
+                    if (line.Contains("Depots"))
+                    {
+                        key = line.Split(separator)[1];
+                        depotsStages.Add(key, new Depots<Vehicle>(pictureWidth, pictureHeight));
+                    }
+                    else if (line.Contains(separator))
+                    {
+                        if (line.Contains("Train"))
+                        {
+                            transport = new Train(line.Split(separator)[1]);
+                        }
+                        else if (line.Contains("Electric_locomotive"))
+                        {
+                            transport = new Electric_locomotive(line.Split(separator)[1]);
+                        }
+                        if ((depotsStages[key] + transport) == -1)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return true;
             }
         }
     }

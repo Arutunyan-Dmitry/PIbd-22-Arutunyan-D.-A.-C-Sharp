@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using NLog;
+using System;
+using System.IO;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Train_project
@@ -16,11 +12,18 @@ namespace Train_project
         /// Объект от класса-депо
         /// </summary>
         private readonly DepotCollection depotCollection;
+
+        /// <summary>
+        /// Логгер
+        /// </summary>
+        private readonly Logger logger;
+
         public FormDepot()
         {
             InitializeComponent();
             depotCollection = new DepotCollection(pictureBoxDepot.Width,
             pictureBoxDepot.Height);
+            logger = LogManager.GetCurrentClassLogger();
         }
 
         /// <summary>
@@ -75,6 +78,7 @@ namespace Train_project
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            logger.Info($"Добавили депо {textBoxNewLevelName.Text}");
             depotCollection.AddDepot(textBoxNewLevelName.Text);
             ReloadLevels();
         }
@@ -89,6 +93,7 @@ namespace Train_project
             {
                 if (MessageBox.Show($"Удалить депо { listBoxDepot.SelectedItem}?", "Удаление", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
+                    logger.Info($"Удалили депо{ listBoxDepot.SelectedItem.ToString()}");
                     depotCollection.DelDepot(listBoxDepot.SelectedItem.ToString());
                     ReloadLevels();
                 }
@@ -122,13 +127,28 @@ namespace Train_project
         {
             if (train != null && listBoxDepot.SelectedIndex > -1)
             {
-                if (((depotCollection[listBoxDepot.SelectedItem.ToString()]) + train) != -1)
+                try
                 {
+                    if (((depotCollection[listBoxDepot.SelectedItem.ToString()]) + train) != -1)
+                    {
+                        Draw();
+                        logger.Info($"Добавлен поезд {train}");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Поезд не удалось поставить");
+                    }
                     Draw();
                 }
-                else
+                catch (DepotOverflowException ex)
                 {
-                    MessageBox.Show("Поезд не удалось поставить");
+                    logger.Warn($"Попытка поставить поезд в уже заполненное депо");
+                    MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    logger.Warn($"Неизвестная неудачная попытка поставить поезд в депо");
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -140,16 +160,31 @@ namespace Train_project
         /// <param name="e"></param>
         private void ButtonTakeTrain_Click(object sender, EventArgs e)
         {
-            if (maskedTextBoxPlaceNumb.Text != "")
+            if (listBoxDepot.SelectedIndex > -1 && maskedTextBoxPlaceNumb.Text != "")
             {
-                Vehicle train = depotCollection[listBoxDepot.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBoxPlaceNumb.Text);
-                if (train != null)
+                try
                 {
-                    FormElTrain form = new FormElTrain();
-                    form.SetTrain(train);
-                    form.ShowDialog();
+                    var train = depotCollection[listBoxDepot.SelectedItem.ToString()] - Convert.ToInt32(maskedTextBoxPlaceNumb.Text);
+                    if (train != null)
+                    {
+                        FormElTrain form = new FormElTrain();
+                        form.SetTrain(train);
+                        form.ShowDialog();
+
+                        logger.Info($"Изъят поезд {train} с места{ maskedTextBoxPlaceNumb.Text}");
+                    }
+                    Draw();
+                } 
+                catch(DepotNotFoundException ex)
+                {
+                    logger.Warn($"Попытка забрать поезд с не существующего места");
+                    MessageBox.Show(ex.Message, "Не найдено", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                Draw();
+                catch (Exception ex)
+                {
+                    logger.Warn($"Неизвестная неудачная попытка забрать поезд");
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -160,6 +195,7 @@ namespace Train_project
         /// <param name="e"></param>  
         private void listBoxDepot_SelectedIndexChanged(object sender, EventArgs e)
         {
+            logger.Info($"Перешли на парковку { listBoxDepot.SelectedItem.ToString()}");
             Draw();
         }
 
@@ -167,15 +203,18 @@ namespace Train_project
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (depotCollection.SaveData(saveFileDialog.FileName))
+                try
                 {
+                    depotCollection.SaveData(saveFileDialog.FileName);
                     MessageBox.Show("Сохранение прошло успешно", "Результат",
-                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Сохранено в файл " + saveFileDialog.FileName);
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Сохранение не выполнено", "Результат",
-                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    logger.Warn($"Неизвестная неудачная попытка сохранения файла");
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -184,17 +223,37 @@ namespace Train_project
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (depotCollection.LoadData(openFileDialog.FileName))
+                try
                 {
-                    MessageBox.Show("Загрузка прошла успешно", "Результат", MessageBoxButtons.OK,
-                   MessageBoxIcon.Information);
+                    depotCollection.LoadData(openFileDialog.FileName);
+                    MessageBox.Show("Загрузка прошла успешно", "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    logger.Info("Загружено из файла " + openFileDialog.FileName);
                     ReloadLevels();
                     Draw();
                 }
-                else
+                catch (FileNotFoundException ex)
                 {
-                    MessageBox.Show("Загрузка не выполнена", "Результат", MessageBoxButtons.OK,
-                   MessageBoxIcon.Error);
+                    logger.Warn($"Попытка найти не существующий фаил для загрузки");
+                    MessageBox.Show(ex.Message, "Фаил отсутсвует", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                }
+                catch (FileFormatException ex)
+                {
+                    logger.Warn($"Попытка загрузки файла с неверным форматом");
+                    MessageBox.Show(ex.Message, "Неверный формат файла", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                }
+                catch (TypeLoadException ex)
+                {
+                    logger.Warn($"Попытка загрузки в депо неизвестного типа обЪекта(ов)");
+                    MessageBox.Show(ex.Message, "Неверный тип загружаемого объекта", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    logger.Warn($"Неизвестная неудачная попытка загрузки файла");
+                    MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

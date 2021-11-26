@@ -60,12 +60,12 @@ namespace Train_project
         /// <returns></returns>
         public static int operator +(Depots<T> p, T train)
         {
-            if (p._places.Count != p._maxCount)
+            if (p._places.Count >= p._maxCount)
             {
-                p._places.Add(train);
-                return p._places.Count - 1;
+                throw new DepotOverflowException();
             }
-            return -1;      
+            p._places.Add(train);
+            return p._places.Count - 1;
         }
         /// <summary>
         /// Перегрузка оператора вычитания
@@ -76,14 +76,14 @@ namespace Train_project
         /// <returns></returns>
         public static T operator -(Depots<T> p, int index)
         {
-            
-            if ((index >= 0) && (index < p._places.Count))
+
+            if (index < -1 || index > p._places.Count)
             {
-                T result = p._places[index];
-                p._places.RemoveAt(index);
-                return result;
+                throw new DepotNotFoundException(index);
             }
-            return null;
+            T result = p._places[index];
+            p._places.RemoveAt(index);
+            return result;
         }
         /// <summary>
         /// Метод отрисовки депо

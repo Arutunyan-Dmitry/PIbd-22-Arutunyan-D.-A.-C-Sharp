@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -80,6 +81,10 @@ namespace Train_project
         /// <returns></returns>
         public bool SaveData(string filename)
         {
+            if (File.Exists(filename))
+            {
+                File.Delete(filename);
+            }
             using (StreamWriter streamWriter = new StreamWriter
             (filename, false, Encoding.Default))
             {
@@ -110,13 +115,12 @@ namespace Train_project
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public bool LoadData(string filename)
+        public void LoadData(string filename)
         {
             if (!File.Exists(filename))
             {
-                return false;
+                throw new FileNotFoundException("Фаил не найден");
             }
-
             using (StreamReader streamReader = new StreamReader
             (filename, Encoding.Default))
             {
@@ -126,7 +130,7 @@ namespace Train_project
                 }
                 else
                 {
-                    return false;
+                    throw new FileFormatException("Неверный формат файла");
                 }
                 Vehicle transport = null;
                 string key = string.Empty;
@@ -150,11 +154,10 @@ namespace Train_project
                         }
                         if ((depotsStages[key] + transport) == -1)
                         {
-                            return false;
+                            throw new TypeLoadException("Не удалось загрузить поезд в депо");
                         }
                     }
                 }
-                return true;
             }
         }
     }

@@ -122,7 +122,7 @@ namespace Train_project
         /// <summary>
         /// Метод добавления поезда
         /// </summary>
-        /// <param name="car"></param>
+        /// <param name="train"></param>
         private void AddTrain(Vehicle train)
         {
             if (train != null && listBoxDepot.SelectedIndex > -1)
@@ -144,6 +144,11 @@ namespace Train_project
                 {
                     logger.Warn($"Попытка поставить поезд в уже заполненное депо");
                     MessageBox.Show(ex.Message, "Переполнение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (DepotAlreadyHaveException ex)
+                {
+                    logger.Warn($"Попытка поставить уже существующий поезд в депо");
+                    MessageBox.Show(ex.Message, "Клонирование", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
@@ -255,6 +260,16 @@ namespace Train_project
                     MessageBox.Show(ex.Message, "Неизвестная ошибка при сохранении",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            if (listBoxDepot.SelectedIndex > -1)
+            {
+                depotCollection[listBoxDepot.SelectedItem.ToString()].Sort();
+                Draw();
+                logger.Info("Сортировка уровней");
             }
         }
     }

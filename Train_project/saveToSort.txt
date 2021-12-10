@@ -1,0 +1,7 @@
+DepotCollection
+Depots:Depo1
+Electric_locomotive:100;100;DarkOrange;Red;Blue;True;True
+Train:100;100;Lime;Aqua
+Electric_locomotive:100;100;MediumOrchid;Aqua;Black;True;True
+Electric_locomotive:100;100;Lime;Yellow;Red;False;True
+Train:124;100;Black;Blue

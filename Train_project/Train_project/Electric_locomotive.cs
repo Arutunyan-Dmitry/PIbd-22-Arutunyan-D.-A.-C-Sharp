@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace Train_project
 {
-    public class Electric_locomotive : Train
+    public class Electric_locomotive : Train, IEquatable<Electric_locomotive>
     {
         /// <summary>
         /// Признак наличия токоприёмника
@@ -82,7 +82,7 @@ namespace Train_project
                     new PointF(_startPosX + 95, _startPosY + 15),
                     new PointF(_startPosX + 80, _startPosY + 30),
                     new PointF(_startPosX + 65, _startPosY + 15) };
-                g.DrawPolygon(pen, Cond_points);        
+                g.DrawPolygon(pen, Cond_points);
             }
 
             // отрисуем аккумулятор
@@ -106,6 +106,52 @@ namespace Train_project
         {
             return
             $"{base.ToString()}{separator}{ColColor.Name}{separator}{Collector}{separator}{Battery}";
+        }
+
+        /// <summary>
+        /// Метод интерфейса IEquatable для класса SportCar
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Electric_locomotive other)
+        {
+            if (!Equals((Train)other))
+            {
+                return false;
+            }
+            if (Collector != other.Collector)
+            {
+                return false;
+            }
+            if (ColColor != other.ColColor)
+            {
+                return false;
+            }
+            if (Battery != other.Battery)
+            {
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// Перегрузка метода от object
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(Object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is Electric_locomotive ElectricLocObj))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(ElectricLocObj);
+            }
         }
     }
 }

@@ -92,8 +92,7 @@ namespace Train_project
                 foreach (var level in depotsStages)
                 {
                     streamWriter.WriteLine("Depots" + separator + level.Key);
-                    ITransport train;
-                    for (int i = 0; (train = level.Value.GetNext(i)) != null; i++)
+                    foreach (ITransport train in level.Value)
                     {
                         if (train.GetType().Name == "Train")
                         {
@@ -151,7 +150,7 @@ namespace Train_project
                         else if (line.Contains("Electric_locomotive"))
                         {
                             transport = new Electric_locomotive(line.Split(separator)[1]);
-                        }
+                        } 
                         if ((depotsStages[key] + transport) == -1)
                         {
                             throw new TypeLoadException("Не удалось загрузить поезд в депо");

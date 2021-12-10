@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Collections;
 
 namespace Train_project
 {
@@ -11,7 +12,7 @@ namespace Train_project
     /// Параметризованный класс для хранения набора объектов от интерфейса ITransport
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    class Depots<T> where T : class, ITransport
+    class Depots<T> : IEnumerator<T>, IEnumerable<T> where T : class, ITransport
     {
         /// <summary>
         /// Список объектов, которые храним
@@ -38,6 +39,12 @@ namespace Train_project
         /// </summary>
         private readonly int _placeSizeHeight = 150;
         /// <summary>
+        /// Текущий элемент для вывода через IEnumerator (будет обращаться по своему индексу к ключу словаря, по которму будет возвращаться запись)
+        /// </summary>
+        private int _currentIndex;
+        public T Current => _places[_currentIndex];
+        object IEnumerator.Current => _places[_currentIndex];
+        /// <summary>
         /// Конструктор
         /// </summary>
         /// <param name="picWidth">Рамзер депо - ширина</param>
@@ -50,6 +57,7 @@ namespace Train_project
             _places = new List<T>();
             pictureWidth = picWidth;
             pictureHeight = picHeight;
+            _currentIndex = -1;
         }
         /// <summary>
         /// Перегрузка оператора сложения
@@ -63,6 +71,10 @@ namespace Train_project
             if (p._places.Count >= p._maxCount)
             {
                 throw new DepotOverflowException();
+            }
+            if (p._places.Contains(train))
+            {
+                throw new DepotAlreadyHaveException();
             }
             p._places.Add(train);
             return p._places.Count - 1;
@@ -133,6 +145,52 @@ namespace Train_project
                 return null;
             }
             return _places[index];
+        }
+
+        /// <summary>
+        /// Сортировка поездов в депо
+        /// </summary>
+        public void Sort() => _places.Sort((IComparer<T>)new TrainComparer());
+        /// <summary>
+        /// Метод интерфейса IEnumerator, вызываемый при удалении объекта
+        /// </summary>
+        public void Dispose()
+        {
+        }
+        /// <summary>
+        /// Метод интерфейса IEnumerator для перехода к следующему элементу или началу коллекции
+        /// </summary>
+        /// <returns></returns>
+        public bool MoveNext()
+        {
+            if ((_currentIndex + 1) >= _places.Count)
+            {
+                Reset();
+                return false;
+            } 
+            _currentIndex++;
+            return true;
+        }
+        /// <summary>
+        /// Метод интерфейса IEnumerator для сброса и возврата к началу коллекции
+        /// </summary>
+        public void Reset()
+        {
+            _currentIndex = -1;
+        }
+        /// <summary>
+        /// Метод интерфейса IEnumerable
+        /// </summary>
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this;
+        }
+        /// <summary>
+        /// Метод интерфейса IEnumerable
+        /// </summary>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this;
         }
     }
 }

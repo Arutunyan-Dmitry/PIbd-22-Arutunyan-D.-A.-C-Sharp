@@ -5,9 +5,3 @@ Train:100;100;MediumOrchid;Red
 Depots:depo 2
 Electric_locomotive:100;100;Yellow;Aqua;Red;True;True
 Electric_locomotive:100;100;Yellow;Aqua;Red;True;True
-Electric_locomotive:100;100;Yellow;Aqua;Red;True;True
-Electric_locomotive:100;100;Yellow;Aqua;Red;True;True
-Electric_locomotive:100;100;Yellow;Aqua;Red;True;True
-Electric_locomotive:100;100;Yellow;Aqua;Red;True;True
-Electric_locomotive:100;100;Yellow;Aqua;Red;True;True
-Electric_locomotive:100;100;Yellow;Aqua;Red;True;True
